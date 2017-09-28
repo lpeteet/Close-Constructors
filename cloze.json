@@ -1,6 +1,6 @@
 [
     {
-        "text": "this is a question",
+        "fulltext": "this is a question",
         "cloze": "question",
         "partial": "this is a ________"
     }

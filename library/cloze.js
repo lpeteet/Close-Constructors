@@ -1,7 +1,7 @@
 var ClozeCard = function(text, cloze) {
     if(this instanceof ClozeCard) {
       this.cloze = cloze;
-      this.text = text;
+      this.fulltext = text;
       this.partial = text.replace(cloze, "________");
       //The constructor should throw or log an error when the cloze deletion does _not_ appear in the input text.
       this.init = function(){

@@ -97,9 +97,9 @@ function checkCreateCards() {
   let base = require('./cloze.json');
   // console.log("base", base);
   // console.log("base.length", base.length);
-  base[0].text = "Rocket Man is the Leader of North Korea";
+  base[0].fulltext = "Rocket Man is the Leader of North Korea";
   base[0].cloze = "North Korea";
-  base[0].partial = base[0].text.replace(base[0].cloze, "________");
+  base[0].partial = base[0].fulltext.replace(base[0].cloze, "________");
   // console.log("base After", base);
   //let result = [];
   let result = base;
