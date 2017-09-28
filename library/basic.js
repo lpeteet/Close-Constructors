@@ -1,3 +1,4 @@
+//BasicCard Object Constructor
 var BasicCard = function(front, back) {
     //BONUS: scope-safe constructor
     if(this instanceof BasicCard) {
@@ -6,6 +7,7 @@ var BasicCard = function(front, back) {
       } else {
         return new BasicCard(front, back);
       }
-  };
+};
 
+//Make the BasicCard Object Importable
 module.exports = BasicCard;

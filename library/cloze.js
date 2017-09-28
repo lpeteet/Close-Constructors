@@ -1,3 +1,4 @@
+//ClozeCard Object Constructor
 var ClozeCard = function(text, cloze) {
     //BONUS: scope-safe constructor
     if(this instanceof ClozeCard) {
@@ -16,4 +17,5 @@ var ClozeCard = function(text, cloze) {
     }
   };
 
-  module.exports = ClozeCard;
+//Make the ClozeCard Object Importable
+module.exports = ClozeCard;
