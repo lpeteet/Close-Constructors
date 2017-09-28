@@ -1,4 +1,5 @@
 var ClozeCard = function(text, cloze) {
+    //BONUS: scope-safe constructor
     if(this instanceof ClozeCard) {
       this.cloze = cloze;
       this.fulltext = text;

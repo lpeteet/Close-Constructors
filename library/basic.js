@@ -1,4 +1,5 @@
 var BasicCard = function(front, back) {
+    //BONUS: scope-safe constructor
     if(this instanceof BasicCard) {
       this.front = front;
       this.back = back;
