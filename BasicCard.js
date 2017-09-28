@@ -10,25 +10,59 @@
 
 */
 
-//requires
+/* REQUIRES */
 
 var basicCard = require('./library/basic.js');
 //var cardDate = require('./basic.json');
 var inquirer = require('inquirer');
 
+/* GLOBAL VARIABLES */
 var cards;
 var count = 0;
 var question;
 
+/* FUNCTIONS */
+
 function startGame(){
     //code
-    console.log("Inside StartGame(); Calling checkCreateCards()");
+    //console.log("Inside StartGame(); Calling checkCreateCards()");
+    //This will create JSON File with Questions/Answers if it has not been created already
     checkCreateCards();
-    console.log("Inside StartGame(); Returned From checkCreateCards()");
+    //console.log("Inside StartGame(); Returned From checkCreateCards()");
     //round();
     prompts();
 }
 
+function prompts(){
+    
+    //console.log("Inside Prompts()");
+    //Only loop as many times as we have cards.
+    if (count < cards.length) {
+        //Prompt User with card front
+        inquirer.prompt([
+            {
+                type: "input",
+                message: cards[count].front,
+                name: 'userAnswer'
+            }
+        ])
+        .then(function(answers) {
+            // console.log("answers", answers);
+            //answers has the user response
+            if (answers.userAnswer == cards[count].back) {
+                console.log("Correct Answer!");
+            } else {
+                console.log("InCorrect Answer!");
+            }
+            count++;
+            prompts();
+        });
+    } else {
+        //All Done!  End the game
+        endGame();
+    }
+} //prompts()
+    
 function endGame(){
     //code
     console.log("Thanks for Playing!");
@@ -36,6 +70,7 @@ function endGame(){
 
 function round(){
     //console.log("Inside round");
+    //Check Cards Length
     if (count < cards.length) {
         question = [{
             name: 'userAnswer',
@@ -48,40 +83,17 @@ function round(){
     }
 }
 
-function prompts(){
-
-    //console.log("Inside Prompts()");
-    if (count < cards.length) {
-        inquirer.prompt([
-            {
-              type: "input",
-              message: cards[count].front,
-              name: 'userAnswer'
-            }
-        ])
-        .then(function(answers) {
-            // console.log("answers", answers);
-            if (answers.userAnswer == cards[count].back) {
-                console.log("Correct Answer!");
-            } else {
-                console.log("InCorrect Answer!");
-            }
-            count++;
-            prompts();
-        });
-    } else {
-        endGame();
-    }
-} //prompts()
-
+//Read JSON file with Questions and Answers if not there then creates it!
 function checkCreateCards() {
 //    console.log("Inside checkCreateCards()");
 
     let fs = require("fs");
 
+    //Check for existence of Template
     if (!fs.existsSync("./basic.json")) {
         throw "Cannot Access Basic Template ('basic.json')";
     }
+    //Have we already created the output file?
     if (fs.existsSync("./basicOut.json")) {
         console.log("basicOut Already Exists, no need to create");
     }
@@ -92,12 +104,14 @@ function checkCreateCards() {
     let base = require('./basic.json');
     // console.log("base", base);
     // console.log("base.length", base.length);
+    //Modify Template in Memory only
     base[0].front = "Rocket Man is the Leader of ...";
     base[0].back = "North Korea";
     // console.log("base After", base);
     //let result = [];
     let result = base;
     //let obj = JSON.parse(JSON.stringify(base));
+    //Add Question/Answer Cards
     var obj = new basicCard("Gas, Liquid and Solid are ...", "Phases");
     // console.log("obj", obj);
     result.push(obj);
@@ -112,6 +126,7 @@ function checkCreateCards() {
    
  //    var string = JSON.stringify(base, null, '\t');
 //   Also: fs.writeFileSync() && fs.appendFileSync()
+    //Write the Output File now
     fs.writeFileSync('./basicOut.json', JSON.stringify(result, null, 4));
 //   fs.appendFileSync('./basicOut.json', JSON.stringify(result, null, 4));
     
@@ -126,30 +141,7 @@ function checkCreateCards() {
 
 };
 
+/* MAIN CODE */
+
 startGame();
 
-
-function Bogus() {
-    // if statement to ensure that our questions are only asked five times
-    if (count < cards.length) {
-        console.log("NEW Question");
-        // runs inquirer and asks the user a series of questions whose replies are
-        // stored within the variable answers inside of the .then statement
-        inquirer.prompt([ {
-            name: "response",
-            message: cards[count].front
-        }
-        ]).then(function(answers) {
-            //Did they answer correctly?
-            if (answers.response == cards[count].back) {
-                console.log("Correct Answer!");
-            } else {
-                console.log("InCorrect Answer!");
-            }
-            //add one to count to increment our recursive loop by one
-            count++;
-            //run the askquestion function again so as to either end the loop or ask the questions again
-            prompts();
-        });
-    }
-}

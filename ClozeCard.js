@@ -18,19 +18,22 @@ The bulk of this assignment is implementing `ClozeCard`. If you build a robust `
 
 */
 
-//requires
+/* REQUIRES */
 
 var clozeCard = require('./library/cloze.js');
 //var cardDate = require('./cloze.json');
 var inquirer = require('inquirer');
 
+/* GLOBAL VARIABLES */
 var cards;
 var count = 0;
 var question;
 
+/* FUNCTIONS */
 function startGame(){
   //code
     // console.log("Inside StartGame(); Calling checkCreateCards()");
+    //This will create JSON File with Questions/Answers if it has not been created already
     checkCreateCards();
     // console.log("Inside StartGame(); Returned From checkCreateCards()");
     prompts();
@@ -56,6 +59,7 @@ function round(){
 
 function prompts(){
     //console.log("Inside Prompts()");
+    //Only loop as many times as we have cards.
     if (count < cards.length) {
       inquirer.prompt([
           {
@@ -65,6 +69,7 @@ function prompts(){
           }
       ])
       .then(function(answers) {
+            //answers has the user response
           // console.log("answers", answers);
           if (answers.userAnswer == cards[count].cloze) {
               console.log("Correct Answer!");
@@ -75,19 +80,23 @@ function prompts(){
           prompts();
       });
   } else {
-      endGame();
+        //All Done!  End the game
+        endGame();
   }
 }
 
+//Read JSON file with Questions and Answers if not there then creates it!
 function checkCreateCards() {
   // console.log("Inside checkCreateCards()");
 
   let fs = require("fs");
 
+  //Check for existence of Template
   if (!fs.existsSync("./cloze.json")) {
       throw "Cannot Access Cloze Template ('cloze.json')";
   }
-  if (fs.existsSync("./clozeOut.json")) {
+    //Have we already created the output file?
+    if (fs.existsSync("./clozeOut.json")) {
       console.log("clozeOut Already Exists, no need to create");
   }
   
@@ -97,6 +106,7 @@ function checkCreateCards() {
   let base = require('./cloze.json');
   // console.log("base", base);
   // console.log("base.length", base.length);
+    //Modify Template in Memory only
   base[0].fulltext = "Rocket Man is the Leader of North Korea";
   base[0].cloze = "North Korea";
   base[0].partial = base[0].fulltext.replace(base[0].cloze, "________");
@@ -104,6 +114,7 @@ function checkCreateCards() {
   //let result = [];
   let result = base;
   //let obj = JSON.parse(JSON.stringify(base));
+  //Add Question/Answer Cards
   var obj = new clozeCard("Gas, Liquid and Solid are Phases", "Phases");
   // console.log("obj", obj);
   result.push(obj);
@@ -116,9 +127,9 @@ function checkCreateCards() {
   result.push(obj);
   // console.log("result", result);
  
-//    var string = JSON.stringify(base, null, '\t');
 //   Also: fs.writeFileSync() && fs.appendFileSync()
-  fs.writeFileSync('./clozeOut.json', JSON.stringify(result, null, 4));
+    //Write the Output File now
+    fs.writeFileSync('./clozeOut.json', JSON.stringify(result, null, 4));
 //   fs.appendFileSync('./clozeOut.json', JSON.stringify(result, null, 4));
   
 /*     fs.writeFile('./clozeOut.json', string, function(err) {
@@ -132,6 +143,9 @@ function checkCreateCards() {
 
 };
 
+/* MAIN CODE */
 startGame();
+
+
 
 
