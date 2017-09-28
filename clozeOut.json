@@ -1,0 +1,22 @@
+[
+    {
+        "text": "Rocket Man is the Leader of North Korea",
+        "cloze": "North Korea",
+        "partial": "Rocket Man is the Leader of ________"
+    },
+    {
+        "cloze": "Phases",
+        "text": "Gas, Liquid and Solid are Phases",
+        "partial": "Gas, Liquid and Solid are ________"
+    },
+    {
+        "cloze": "France",
+        "text": "The Eiffel Tower is in France",
+        "partial": "The Eiffel Tower is in ________"
+    },
+    {
+        "cloze": "George Washington",
+        "text": "George Washington was the first president of the United States?",
+        "partial": "________ was the first president of the United States?"
+    }
+]

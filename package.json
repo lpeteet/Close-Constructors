@@ -1,0 +1,26 @@
+{
+  "name": "flashcard-generator",
+  "version": "1.0.0",
+  "description": "Homework: Flashcard-Generator",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lpeteet/Close-Constructors.git"
+  },
+  "author": "Larry S. Peteet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lpeteet/Close-Constructors/issues"
+  },
+  "homepage": "https://github.com/lpeteet/Close-Constructors#readme",
+  "dependencies": {
+    "inquirer": "^3.3.0",
+    "request": "^2.82.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.0"
+  }
+}
